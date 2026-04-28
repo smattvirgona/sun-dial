@@ -1,0 +1,41 @@
+# Source manifest. Ingest pipeline rejects any text whose source isn't listed
+# here with a known license_ring. Verify license at ingest, not at query time.
+#
+# Ring 1: public domain (ship-safe).
+# Ring 2: permissive / CC (verify per-source).
+# Ring 3: copyrighted — DO NOT ingest unless explicitly licensed.
+
+sources:
+  - id: ashmand_tetrabiblos_1822
+    title: "Tetrabiblos (Ashmand translation)"
+    author: "Claudius Ptolemy"
+    year: 1822
+    system: western
+    license_ring: 1
+    source_url: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Ptolemy/Tetrabiblos/home.html"
+
+  - id: manilius_astronomica_loeb
+    title: "Astronomica"
+    author: "Marcus Manilius"
+    year: 0  # 1st century CE; modern Loeb edition has translation copyright concerns — verify before ingesting
+    system: western
+    license_ring: 2
+    source_url: "https://www.loebclassics.com/view/manilius-astronomica/1977/pb_LCL469.7.xml"
+
+  # Vedic — older PD English translations exist on Internet Archive; verify each
+  - id: bphs_santhanam_placeholder
+    title: "Brihat Parashara Hora Shastra (Santhanam translation)"
+    author: "Maharishi Parashara"
+    year: 1984
+    system: vedic
+    license_ring: 3  # licensing murky; treat as Ring 3 until cleared
+    source_url: "https://archive.org/details/BPHSEnglish"
+
+  # Chinese / BaZi — most quality English material is copyrighted. Placeholder.
+  - id: bazi_placeholder
+    title: "BaZi public-domain reference (TBD)"
+    author: ""
+    year: 0
+    system: chinese
+    license_ring: 3
+    source_url: ""
