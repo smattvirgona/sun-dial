@@ -1,0 +1,384 @@
+{
+  "birth": {
+    "when_utc": "1984-02-05T00:00:00Z",
+    "lat": 39.9042,
+    "lon": 116.4074,
+    "place_name": "Beijing"
+  },
+  "western": {
+    "system": "western",
+    "options": {
+      "houses": "whole_sign"
+    },
+    "data": {
+      "julian_day_ut": 2445735.5,
+      "planets": {
+        "sun": {
+          "longitude": 315.367187,
+          "speed": 1.01431,
+          "sign": "aquarius",
+          "deg_in_sign": 15.3672,
+          "house": 1
+        },
+        "moon": {
+          "longitude": 348.109507,
+          "speed": 11.852215,
+          "sign": "pisces",
+          "deg_in_sign": 18.1095,
+          "house": 2
+        },
+        "mercury": {
+          "longitude": 294.154941,
+          "speed": 1.400154,
+          "sign": "capricorn",
+          "deg_in_sign": 24.1549,
+          "house": 12
+        },
+        "venus": {
+          "longitude": 282.527147,
+          "speed": 1.228347,
+          "sign": "capricorn",
+          "deg_in_sign": 12.5271,
+          "house": 12
+        },
+        "mars": {
+          "longitude": 222.049722,
+          "speed": 0.446818,
+          "sign": "scorpio",
+          "deg_in_sign": 12.0497,
+          "house": 10
+        },
+        "jupiter": {
+          "longitude": 273.368771,
+          "speed": 0.196874,
+          "sign": "capricorn",
+          "deg_in_sign": 3.3688,
+          "house": 12
+        },
+        "saturn": {
+          "longitude": 226.053675,
+          "speed": 0.033527,
+          "sign": "scorpio",
+          "deg_in_sign": 16.0537,
+          "house": 10
+        },
+        "uranus": {
+          "longitude": 252.782891,
+          "speed": 0.035888,
+          "sign": "sagittarius",
+          "deg_in_sign": 12.7829,
+          "house": 11
+        },
+        "neptune": {
+          "longitude": 270.537223,
+          "speed": 0.028985,
+          "sign": "capricorn",
+          "deg_in_sign": 0.5372,
+          "house": 12
+        },
+        "pluto": {
+          "longitude": 212.13638,
+          "speed": -0.000555,
+          "sign": "scorpio",
+          "deg_in_sign": 2.1364,
+          "house": 10
+        },
+        "north_node": {
+          "longitude": 72.675368,
+          "speed": -0.052979,
+          "sign": "gemini",
+          "deg_in_sign": 12.6754,
+          "house": 5
+        }
+      },
+      "houses": [
+        300.0,
+        330.0,
+        0.0,
+        30.0,
+        60.0,
+        90.0,
+        120.0,
+        150.0,
+        180.0,
+        210.0,
+        240.0,
+        270.0
+      ],
+      "ascendant": 328.277866,
+      "midheaven": 252.231121,
+      "asc_sign": "aquarius",
+      "mc_sign": "sagittarius",
+      "aspects": [
+        {
+          "a": "sun",
+          "b": "mars",
+          "aspect": "square",
+          "orb": 3.317
+        },
+        {
+          "a": "sun",
+          "b": "saturn",
+          "aspect": "square",
+          "orb": 0.686
+        },
+        {
+          "a": "sun",
+          "b": "uranus",
+          "aspect": "sextile",
+          "orb": 2.584
+        },
+        {
+          "a": "sun",
+          "b": "north_node",
+          "aspect": "trine",
+          "orb": 2.692
+        },
+        {
+          "a": "moon",
+          "b": "venus",
+          "aspect": "sextile",
+          "orb": 5.582
+        },
+        {
+          "a": "moon",
+          "b": "saturn",
+          "aspect": "trine",
+          "orb": 2.056
+        },
+        {
+          "a": "moon",
+          "b": "uranus",
+          "aspect": "square",
+          "orb": 5.327
+        },
+        {
+          "a": "moon",
+          "b": "north_node",
+          "aspect": "square",
+          "orb": 5.434
+        },
+        {
+          "a": "venus",
+          "b": "mars",
+          "aspect": "sextile",
+          "orb": 0.477
+        },
+        {
+          "a": "venus",
+          "b": "saturn",
+          "aspect": "sextile",
+          "orb": 3.527
+        },
+        {
+          "a": "mars",
+          "b": "saturn",
+          "aspect": "conjunction",
+          "orb": 4.004
+        },
+        {
+          "a": "jupiter",
+          "b": "neptune",
+          "aspect": "conjunction",
+          "orb": 2.832
+        },
+        {
+          "a": "jupiter",
+          "b": "pluto",
+          "aspect": "sextile",
+          "orb": 1.232
+        },
+        {
+          "a": "uranus",
+          "b": "north_node",
+          "aspect": "opposition",
+          "orb": 0.108
+        },
+        {
+          "a": "neptune",
+          "b": "pluto",
+          "aspect": "sextile",
+          "orb": 1.599
+        }
+      ]
+    }
+  },
+  "vedic": {
+    "system": "vedic",
+    "options": {
+      "ayanamsa": "lahiri"
+    },
+    "data": {
+      "julian_day_ut": 2445735.5,
+      "ayanamsa_deg": 23.634879,
+      "planets": {
+        "sun": {
+          "longitude": 291.73642,
+          "speed": 1.014296,
+          "rashi": "capricorn",
+          "deg_in_rashi": 21.7364,
+          "nakshatra": "shravana",
+          "pada": 4,
+          "bhava": 12
+        },
+        "moon": {
+          "longitude": 324.47874,
+          "speed": 11.852201,
+          "rashi": "aquarius",
+          "deg_in_rashi": 24.4787,
+          "nakshatra": "purva_bhadrapada",
+          "pada": 2,
+          "bhava": 1
+        },
+        "mercury": {
+          "longitude": 270.524174,
+          "speed": 1.40014,
+          "rashi": "capricorn",
+          "deg_in_rashi": 0.5242,
+          "nakshatra": "uttara_ashadha",
+          "pada": 2,
+          "bhava": 12
+        },
+        "venus": {
+          "longitude": 258.89638,
+          "speed": 1.228334,
+          "rashi": "sagittarius",
+          "deg_in_rashi": 18.8964,
+          "nakshatra": "purva_ashadha",
+          "pada": 2,
+          "bhava": 11
+        },
+        "mars": {
+          "longitude": 198.418955,
+          "speed": 0.446804,
+          "rashi": "libra",
+          "deg_in_rashi": 18.419,
+          "nakshatra": "swati",
+          "pada": 4,
+          "bhava": 9
+        },
+        "jupiter": {
+          "longitude": 249.738004,
+          "speed": 0.196861,
+          "rashi": "sagittarius",
+          "deg_in_rashi": 9.738,
+          "nakshatra": "mula",
+          "pada": 3,
+          "bhava": 11
+        },
+        "saturn": {
+          "longitude": 202.422908,
+          "speed": 0.033514,
+          "rashi": "libra",
+          "deg_in_rashi": 22.4229,
+          "nakshatra": "vishakha",
+          "pada": 1,
+          "bhava": 9
+        },
+        "uranus": {
+          "longitude": 229.152124,
+          "speed": 0.035875,
+          "rashi": "scorpio",
+          "deg_in_rashi": 19.1521,
+          "nakshatra": "jyeshtha",
+          "pada": 1,
+          "bhava": 10
+        },
+        "neptune": {
+          "longitude": 246.906456,
+          "speed": 0.028972,
+          "rashi": "sagittarius",
+          "deg_in_rashi": 6.9065,
+          "nakshatra": "mula",
+          "pada": 3,
+          "bhava": 11
+        },
+        "pluto": {
+          "longitude": 188.505613,
+          "speed": -0.000572,
+          "rashi": "libra",
+          "deg_in_rashi": 8.5056,
+          "nakshatra": "swati",
+          "pada": 1,
+          "bhava": 9
+        },
+        "rahu": {
+          "longitude": 49.044601,
+          "speed": -0.052992,
+          "rashi": "taurus",
+          "deg_in_rashi": 19.0446,
+          "nakshatra": "rohini",
+          "pada": 3,
+          "bhava": 4
+        },
+        "ketu": {
+          "longitude": 229.044601,
+          "speed": 0.052992,
+          "rashi": "scorpio",
+          "deg_in_rashi": 19.0446,
+          "nakshatra": "jyeshtha",
+          "pada": 1,
+          "bhava": 10
+        }
+      },
+      "ascendant": 304.642987,
+      "midheaven": 228.596242,
+      "lagna_rashi": "aquarius",
+      "lagna_nakshatra": "dhanishta"
+    }
+  },
+  "chinese": {
+    "system": "chinese",
+    "options": {
+      "use_true_solar_time": true
+    },
+    "data": {
+      "pillars": {
+        "year": {
+          "stem": "jia",
+          "stem_index": 0,
+          "stem_element": "wood",
+          "stem_yin_yang": "yang",
+          "branch": "zi",
+          "branch_index": 0,
+          "branch_animal": "rat",
+          "branch_element": "water"
+        },
+        "month": {
+          "stem": "bing",
+          "stem_index": 2,
+          "stem_element": "fire",
+          "stem_yin_yang": "yang",
+          "branch": "yin",
+          "branch_index": 2,
+          "branch_animal": "tiger",
+          "branch_element": "wood"
+        },
+        "day": {
+          "stem": "ding",
+          "stem_index": 3,
+          "stem_element": "fire",
+          "stem_yin_yang": "yin",
+          "branch": "mao",
+          "branch_index": 3,
+          "branch_animal": "rabbit",
+          "branch_element": "wood"
+        },
+        "hour": {
+          "stem": "jia",
+          "stem_index": 0,
+          "stem_element": "wood",
+          "stem_yin_yang": "yang",
+          "branch": "chen",
+          "branch_index": 4,
+          "branch_animal": "dragon",
+          "branch_element": "earth"
+        }
+      },
+      "day_master": "ding",
+      "day_master_element": "fire",
+      "sun_longitude_at_birth": 315.367187,
+      "bazi_solar_year": 1984
+    }
+  }
+}
