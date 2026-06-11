@@ -12,6 +12,7 @@ class ReflectionRequest(BaseModel):
     chart: Chart
     systems_in_play: list[System]
     snippets: list[CorpusChunk]
+    transits: list[dict] = []  # active transits at the moment of the request
 
 
 class Citation(BaseModel):

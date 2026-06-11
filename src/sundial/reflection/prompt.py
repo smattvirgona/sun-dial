@@ -53,6 +53,17 @@ def _snippets_text(req: ReflectionRequest) -> str:
     return "\n\n".join(parts)
 
 
+def _transits_text(req: ReflectionRequest) -> str:
+    if not req.transits:
+        return "(no notable transits within orb at this moment)"
+    lines = [
+        f"- transiting {t['transiting']} {t['aspect']} natal {t['natal']} "
+        f"(orb {t['orb']}°)"
+        for t in req.transits
+    ]
+    return "\n".join(lines)
+
+
 def build_system(req: ReflectionRequest) -> list[dict[str, Any]]:
     return [
         {
@@ -76,6 +87,10 @@ def build_messages(req: ReflectionRequest) -> list[dict[str, Any]]:
                 {
                     "type": "text",
                     "text": f"=== CORPUS SNIPPETS ===\n{_snippets_text(req)}",
+                },
+                {
+                    "type": "text",
+                    "text": f"=== CURRENT MOMENT ===\n{_transits_text(req)}",
                 },
                 {
                     "type": "text",

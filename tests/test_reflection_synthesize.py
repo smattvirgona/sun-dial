@@ -88,8 +88,9 @@ def test_synthesize_uses_cache_friendly_prompt_and_correct_model() -> None:
     assert user_blocks[0]["cache_control"] == {"type": "ephemeral"}
     assert "CHART FACTS" in user_blocks[0]["text"]
     assert "CORPUS SNIPPETS" in user_blocks[1]["text"]
-    assert "Should I leave my job?" in user_blocks[2]["text"]
-    assert "cache_control" not in user_blocks[2]
+    assert "CURRENT MOMENT" in user_blocks[2]["text"]
+    assert "Should I leave my job?" in user_blocks[3]["text"]
+    assert "cache_control" not in user_blocks[3]
 
     assert result.headline.startswith("Stay")
     assert result.chart_hash

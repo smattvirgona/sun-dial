@@ -61,6 +61,11 @@
   }
   .cite q { font-style: italic; }
   .err { color: #c46a5a; margin-top: 2rem; }
+  .moment {
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 1.4rem;
+  }
+  .moment b { color: var(--ember); font-weight: normal; }
 </style>
 </head>
 <body>
@@ -92,6 +97,7 @@
     <button id="go">reflect</button>
   </form>
   <section id="out" hidden>
+    <p id="moment" class="moment"></p>
     <p id="headline"></p>
     <p id="body"></p>
     <div id="cites"></div>
@@ -131,6 +137,12 @@ $('f').addEventListener('submit', async e => {
     if (!res.ok) throw new Error(data.detail || res.statusText);
     $('out').hidden = false;
     $('cites').innerHTML = '';
+    if (data.transits && data.transits.length) {
+      const t = data.transits[0];
+      $('moment').innerHTML = `the moment · transiting <b>${t.transiting}</b> ${t.aspect} natal <b>${t.natal}</b>`;
+    } else {
+      $('moment').textContent = 'the moment · sky quiet within orb';
+    }
     if (data.reflection) {
       $('headline').textContent = data.reflection.headline;
       typeOn($('body'), data.reflection.body, () => {

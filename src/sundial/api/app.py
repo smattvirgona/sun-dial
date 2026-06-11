@@ -18,7 +18,14 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from sundial.charts import ChineseEngine, VedicEngine, WesternEngine
+from sundial.charts import (
+    ChineseEngine,
+    VedicEngine,
+    WesternEngine,
+    active_transits,
+    current_sky,
+    transit_placement_tags,
+)
 from sundial.corpus import RetrievalQuery
 from sundial.corpus.retrieve import InMemoryRetriever
 from sundial.reflection import synthesize
@@ -86,8 +93,17 @@ def create_app(retriever: InMemoryRetriever | None = None) -> FastAPI:
         chart_obj = engine.compute(birth)
         placements = engine.salient_placements(chart_obj)
 
+        # Current sky → active transits → extra retrieval tags. Western only
+        # for transit math in v1; the natal chart can still be Vedic/Chinese
+        # and the transit tags only fire on the western retrieval row.
+        sky = current_sky(birth)
+        transits = (
+            active_transits(chart_obj, sky) if req.system == "western" else []
+        )
+
+        placement_tags = [p.factor for p in placements] + transit_placement_tags(transits)
         query = RetrievalQuery(
-            placement_tags=[p.factor for p in placements],
+            placement_tags=placement_tags,
             systems=[req.system],
             rings=[1, 2],
             k=8,
@@ -97,6 +113,7 @@ def create_app(retriever: InMemoryRetriever | None = None) -> FastAPI:
         payload: dict[str, Any] = {
             "chart_hash": chart_obj.chart_hash,
             "system": req.system,
+            "transits": transits,
             "snippets": [
                 {"id": c.id, "source_id": c.source_id, "text": c.text}
                 for c in snippets
@@ -120,6 +137,7 @@ def create_app(retriever: InMemoryRetriever | None = None) -> FastAPI:
                 chart=chart_obj,
                 systems_in_play=[req.system],
                 snippets=snippets,
+                transits=transits,
             )
         )
         payload["reflection"] = reflection.model_dump()

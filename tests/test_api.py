@@ -54,6 +54,17 @@ def test_reflect_dry_run_returns_snippets_without_synthesis(client: TestClient) 
     assert data["snippets"], "Ring-1 seed corpus should match a western chart"
     # Every snippet must come from the manifest's PD source.
     assert all(s["source_id"] == "ashmand_tetrabiblos_1822" for s in data["snippets"])
+    # Transits payload is present (may be empty if the sky is quiet right now).
+    assert isinstance(data["transits"], list)
+
+
+def test_reflect_omits_transits_for_non_western_systems(client: TestClient) -> None:
+    res = client.post(
+        "/reflect",
+        json={"birth": BIRTH, "question": "today?", "system": "vedic"},
+    )
+    assert res.status_code == 200
+    assert res.json()["transits"] == []
 
 
 def test_reflect_rejects_empty_question(client: TestClient) -> None:

@@ -55,7 +55,7 @@ def test_user_messages_have_chart_cached_question_volatile() -> None:
     messages = build_messages(req)
     assert len(messages) == 1
     contents = messages[0]["content"]
-    assert len(contents) == 3
+    assert len(contents) == 4
 
     # Chart facts: cached, stable per user.
     assert contents[0]["cache_control"] == {"type": "ephemeral"}
@@ -65,6 +65,11 @@ def test_user_messages_have_chart_cached_question_volatile() -> None:
     assert "CORPUS SNIPPETS" in contents[1]["text"]
     assert "cache_control" not in contents[1]
 
-    # Question: variable suffix, no cache marker.
-    assert "Should I switch jobs?" in contents[2]["text"]
+    # Current moment: variable, no cache marker (this is what keeps the cache
+    # stable per-user even though the moment changes).
+    assert "CURRENT MOMENT" in contents[2]["text"]
     assert "cache_control" not in contents[2]
+
+    # Question: variable suffix, no cache marker.
+    assert "Should I switch jobs?" in contents[3]["text"]
+    assert "cache_control" not in contents[3]
