@@ -1,0 +1,65 @@
+[
+  {
+    "id": "ashmand_tetrabiblos_saturn_general",
+    "source_id": "ashmand_tetrabiblos_1822",
+    "system": "western",
+    "factors": ["saturn"],
+    "topics": ["duty", "limit", "structure"],
+    "text": "Saturn, when he assumes the dominion of the soul, makes his subjects, in his proper condition, sedate, austere, of seemingly simple manners, but really of a malignant temper; close, laborious, set on accomplishing their wants; constant in pursuing their object; persevering, exact, frugal, and retentive of property to a fault.",
+    "license_ring": 1
+  },
+  {
+    "id": "ashmand_tetrabiblos_jupiter_general",
+    "source_id": "ashmand_tetrabiblos_1822",
+    "system": "western",
+    "factors": ["jupiter"],
+    "topics": ["growth", "fortune", "judgment"],
+    "text": "Jupiter, when ruling the soul, makes his subjects magnanimous, beneficent, courteous, devout, just, high-minded, liberal, and discreetly judicious in the direction of all matters; pious, of skilful conduct in business, lovers of their kindred and friends, equitable, humane, and bounteous.",
+    "license_ring": 1
+  },
+  {
+    "id": "ashmand_tetrabiblos_mars_general",
+    "source_id": "ashmand_tetrabiblos_1822",
+    "system": "western",
+    "factors": ["mars"],
+    "topics": ["action", "anger", "courage"],
+    "text": "Mars, when sole governor of the soul, and placed with dignity, makes his subjects noble, commanding, irascible, martial, versatile, powerful, daring, hasty, indifferent to consequences, and resolute.",
+    "license_ring": 1
+  },
+  {
+    "id": "ashmand_tetrabiblos_venus_general",
+    "source_id": "ashmand_tetrabiblos_1822",
+    "system": "western",
+    "factors": ["venus"],
+    "topics": ["love", "beauty", "harmony"],
+    "text": "Venus, when sole ruler of the soul, and posited honourably, makes her subjects amiable, gentle, elegant, fond of pleasure, social, of cheerful disposition, lovers of decency and the arts; fond of music, and of singing, and of feasting.",
+    "license_ring": 1
+  },
+  {
+    "id": "ashmand_tetrabiblos_mercury_general",
+    "source_id": "ashmand_tetrabiblos_1822",
+    "system": "western",
+    "factors": ["mercury"],
+    "topics": ["thinking", "speech", "exchange"],
+    "text": "Mercury, when sole governor of the soul, makes his subjects wise, prudent, thoughtful, learned, ingenious, scientific, and disposed to research; busy in the pursuit of knowledge; discoverers and contrivers; given to investigation and to the study of nature.",
+    "license_ring": 1
+  },
+  {
+    "id": "ashmand_tetrabiblos_moon_general",
+    "source_id": "ashmand_tetrabiblos_1822",
+    "system": "western",
+    "factors": ["moon"],
+    "topics": ["habit", "feeling", "memory"],
+    "text": "The Moon, when sole ruler of the soul, and configurated with becoming dignity, renders her subjects of well-tempered disposition, of good memory, naturally social, well disposed to public life, lovers of conversation, ready in adapting themselves, easy in their address, and susceptible of impressions from others.",
+    "license_ring": 1
+  },
+  {
+    "id": "ashmand_tetrabiblos_sun_general",
+    "source_id": "ashmand_tetrabiblos_1822",
+    "system": "western",
+    "factors": ["sun"],
+    "topics": ["self", "vitality", "purpose"],
+    "text": "The Sun, when ruler of the soul and dignified, makes the native sedate, conscientious, of a noble nature, sociable, just, and lover of his kindred; one who acts uprightly, and who never forsakes the cause of right.",
+    "license_ring": 1
+  }
+]

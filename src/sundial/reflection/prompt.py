@@ -1,7 +1,11 @@
-"""Prompt assembly. Cached prefix (voice + corpus) + variable suffix (question).
+"""Prompt assembly for the reflection synthesis call.
 
-The Anthropic call is added in the next slice — this module only builds the
-message structure so the test suite can assert prompt shape without an API key.
+Caching strategy (prefix-match):
+- `system`: voice guide — stable, cached.
+- First user content block: chart facts — stable per-user across reflections, cached.
+- Remaining user blocks (snippets + question) — vary per request, not cached.
+
+This keeps two breakpoints; the chart prefix becomes a hot cache for any returning user.
 """
 from __future__ import annotations
 
@@ -19,7 +23,7 @@ VOICE_GUIDE = """You write in two registers, layered:
   Do not invent astrological correspondences. If the snippets don't cover
   the question, say so plainly in the body.
 
-Structure of your JSON response (and only this):
+Return JSON only, with this shape:
 {
   "headline": "...",
   "body": "...",
@@ -28,7 +32,6 @@ Structure of your JSON response (and only this):
 
 
 def _chart_facts(req: ReflectionRequest) -> str:
-    """Compact, deterministic textual rendering of the chart for the prompt."""
     return json.dumps(
         {
             "system": req.chart.system,
@@ -41,7 +44,7 @@ def _chart_facts(req: ReflectionRequest) -> str:
     )
 
 
-def _snippets(req: ReflectionRequest) -> str:
+def _snippets_text(req: ReflectionRequest) -> str:
     parts = []
     for c in req.snippets:
         parts.append(
@@ -50,25 +53,29 @@ def _snippets(req: ReflectionRequest) -> str:
     return "\n\n".join(parts)
 
 
-def build_messages(req: ReflectionRequest) -> list[dict[str, Any]]:
-    """Returns Anthropic-style messages with `cache_control` markers.
+def build_system(req: ReflectionRequest) -> list[dict[str, Any]]:
+    return [
+        {
+            "type": "text",
+            "text": VOICE_GUIDE,
+            "cache_control": {"type": "ephemeral"},
+        }
+    ]
 
-    System block + voice guide + chart facts + snippets are all marked for
-    caching. The user's question is the only variable suffix.
-    """
-    cached_prefix = (
-        f"{VOICE_GUIDE}\n\n"
-        f"=== CHART FACTS ===\n{_chart_facts(req)}\n\n"
-        f"=== CORPUS SNIPPETS ===\n{_snippets(req)}"
-    )
+
+def build_messages(req: ReflectionRequest) -> list[dict[str, Any]]:
     return [
         {
             "role": "user",
             "content": [
                 {
                     "type": "text",
-                    "text": cached_prefix,
+                    "text": f"=== CHART FACTS ===\n{_chart_facts(req)}",
                     "cache_control": {"type": "ephemeral"},
+                },
+                {
+                    "type": "text",
+                    "text": f"=== CORPUS SNIPPETS ===\n{_snippets_text(req)}",
                 },
                 {
                     "type": "text",
@@ -77,3 +84,26 @@ def build_messages(req: ReflectionRequest) -> list[dict[str, Any]]:
             ],
         }
     ]
+
+
+REFLECTION_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "headline": {"type": "string"},
+        "body": {"type": "string"},
+        "citations": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "chunk_id": {"type": "string"},
+                    "quote": {"type": "string"},
+                },
+                "required": ["chunk_id", "quote"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["headline", "body", "citations"],
+    "additionalProperties": False,
+}

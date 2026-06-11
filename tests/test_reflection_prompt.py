@@ -1,22 +1,38 @@
-"""Prompt-shape contract test. The Anthropic call is added in a later slice.
-This locks the cached-prefix structure so the eventual API call is cache-friendly.
-"""
+"""Prompt-shape contract test: locks the cache-friendly structure of the
+synthesis prompt so any change has to go through this test."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
 
 from sundial.charts import WesternEngine
 from sundial.corpus import CorpusChunk
-from sundial.reflection import build_messages
+from sundial.reflection import build_messages, build_system
 from sundial.reflection.types import ReflectionRequest
 from sundial.shared import BirthData
 
 
-def test_messages_have_cached_prefix_and_variable_question() -> None:
+def test_system_voice_guide_is_cached() -> None:
     birth = BirthData(
         when_utc=datetime(1990, 6, 15, 18, 30, tzinfo=timezone.utc),
-        lat=40.6782,
-        lon=-73.9442,
+        lat=40.6782, lon=-73.9442,
+    )
+    chart = WesternEngine().compute(birth)
+    req = ReflectionRequest(
+        question="q",
+        chart=chart,
+        systems_in_play=["western"],
+        snippets=[],
+    )
+    system = build_system(req)
+    assert len(system) == 1
+    assert system[0]["cache_control"] == {"type": "ephemeral"}
+    assert "HEADLINE" in system[0]["text"]
+
+
+def test_user_messages_have_chart_cached_question_volatile() -> None:
+    birth = BirthData(
+        when_utc=datetime(1990, 6, 15, 18, 30, tzinfo=timezone.utc),
+        lat=40.6782, lon=-73.9442,
     )
     chart = WesternEngine().compute(birth)
     snippets = [
@@ -39,9 +55,16 @@ def test_messages_have_cached_prefix_and_variable_question() -> None:
     messages = build_messages(req)
     assert len(messages) == 1
     contents = messages[0]["content"]
-    assert len(contents) == 2
-    assert contents[0].get("cache_control") == {"type": "ephemeral"}
+    assert len(contents) == 3
+
+    # Chart facts: cached, stable per user.
+    assert contents[0]["cache_control"] == {"type": "ephemeral"}
     assert "CHART FACTS" in contents[0]["text"]
-    assert "CORPUS SNIPPETS" in contents[0]["text"]
-    assert "Should I switch jobs?" in contents[1]["text"]
+
+    # Snippets: vary per question, no cache marker.
+    assert "CORPUS SNIPPETS" in contents[1]["text"]
     assert "cache_control" not in contents[1]
+
+    # Question: variable suffix, no cache marker.
+    assert "Should I switch jobs?" in contents[2]["text"]
+    assert "cache_control" not in contents[2]
