@@ -55,4 +55,6 @@ def test_chinese_golden(name: str) -> None:
     fx = _load(name)
     birth = BirthData(**fx["birth"])
     chart = ChineseEngine().compute(birth)
-    assert chart.model_dump()["data"] == fx["chinese"]["data"]
+    # _approx_equal compares non-floats exactly, so pillar stems/branches stay
+    # an exact contract; only the sun-longitude float gets tolerance.
+    assert _approx_equal(chart.model_dump()["data"], fx["chinese"]["data"])

@@ -13,16 +13,18 @@ import swisseph as swe
 
 _EPHE_DIR = os.environ.get("SUNDIAL_EPHE_DIR", "ephe")
 _lock = threading.Lock()
-_initialised = False
 
 
 def ensure() -> None:
-    global _initialised
+    """Pin the ephemeris path. Called at the top of every compute().
+
+    Re-set on every call (not once): the path is process-global state in
+    libswe, and other libraries sharing the process (e.g. flatlib in the
+    cross-verification tests) overwrite it with their own bundled files,
+    which would silently change our results mid-run.
+    """
     with _lock:
-        if _initialised:
-            return
         swe.set_ephe_path(_EPHE_DIR)
-        _initialised = True
 
 
 SIGNS = (

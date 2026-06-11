@@ -8,10 +8,12 @@ dependencies = [
     "flatlib>=0.2.3",
     "pydantic>=2.6",
     "anthropic>=0.40",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "httpx>=0.27"]
 
 [build-system]
 requires = ["hatchling"]

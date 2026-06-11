@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sun-dial — a moment to reflect</title>
+<style>
+  :root {
+    --ink: #e8e4d8;
+    --dim: #8a8577;
+    --night: #0c0e14;
+    --panel: #14171f;
+    --line: #2a2d36;
+    --ember: #d08a4b;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: radial-gradient(ellipse at 50% -20%, #1a1e2b 0%, var(--night) 60%);
+    color: var(--ink);
+    font: 17px/1.7 Georgia, 'Times New Roman', serif;
+    min-height: 100vh;
+    display: flex; justify-content: center;
+    padding: 4rem 1.5rem;
+  }
+  main { width: 100%; max-width: 34rem; }
+  h1 {
+    font-size: 1.1rem; font-weight: normal; letter-spacing: 0.35em;
+    text-transform: lowercase; color: var(--dim); text-align: center;
+    margin-bottom: 3rem;
+  }
+  h1 b { color: var(--ember); font-weight: normal; }
+  fieldset { border: none; margin-bottom: 1.2rem; }
+  label { display: block; font-size: 0.78rem; letter-spacing: 0.12em; color: var(--dim); margin-bottom: 0.3rem; text-transform: uppercase; }
+  input, select, textarea {
+    width: 100%; background: var(--panel); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 2px;
+    padding: 0.65rem 0.8rem; font: inherit;
+  }
+  textarea { min-height: 5.5rem; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  button {
+    width: 100%; margin-top: 0.5rem; padding: 0.9rem;
+    background: none; border: 1px solid var(--ember); color: var(--ember);
+    font: inherit; letter-spacing: 0.2em; text-transform: lowercase;
+    cursor: pointer; transition: background 0.4s, color 0.4s;
+  }
+  button:hover { background: var(--ember); color: var(--night); }
+  button:disabled { opacity: 0.4; cursor: wait; }
+  #out { margin-top: 3.5rem; }
+  #headline {
+    font-size: 1.45rem; line-height: 1.4; font-style: italic;
+    color: var(--ink); margin-bottom: 1.6rem;
+  }
+  #body { color: #c9c4b4; white-space: pre-wrap; }
+  #body::after { content: '▍'; color: var(--ember); animation: blink 1s infinite; }
+  #body.done::after { content: ''; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .cite {
+    margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+    font-size: 0.85rem; color: var(--dim);
+  }
+  .cite q { font-style: italic; }
+  .err { color: #c46a5a; margin-top: 2rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>sun <b>·</b> dial</h1>
+  <form id="f">
+    <fieldset class="row">
+      <div>
+        <label for="dt">birth — utc</label>
+        <input id="dt" type="datetime-local" value="1990-06-15T18:30" required>
+      </div>
+      <div>
+        <label for="sys">tradition</label>
+        <select id="sys">
+          <option value="western">western</option>
+          <option value="vedic">vedic</option>
+          <option value="chinese">chinese · bazi</option>
+        </select>
+      </div>
+    </fieldset>
+    <fieldset class="row">
+      <div><label for="lat">latitude</label><input id="lat" type="number" step="any" value="40.6782" required></div>
+      <div><label for="lon">longitude</label><input id="lon" type="number" step="any" value="-73.9442" required></div>
+    </fieldset>
+    <fieldset>
+      <label for="q">what is on your mind</label>
+      <textarea id="q" maxlength="500" placeholder="ask, and sit with it" required></textarea>
+    </fieldset>
+    <button id="go">reflect</button>
+  </form>
+  <section id="out" hidden>
+    <p id="headline"></p>
+    <p id="body"></p>
+    <div id="cites"></div>
+  </section>
+  <p id="err" class="err" hidden></p>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+
+function typeOn(el, text, done) {
+  el.textContent = '';
+  el.classList.remove('done');
+  let i = 0;
+  (function tick() {
+    if (i < text.length) {
+      el.textContent += text[i++];
+      setTimeout(tick, 18);
+    } else { el.classList.add('done'); if (done) done(); }
+  })();
+}
+
+$('f').addEventListener('submit', async e => {
+  e.preventDefault();
+  $('go').disabled = true;
+  $('err').hidden = true; $('out').hidden = true;
+  try {
+    const res = await fetch('/reflect', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        birth: { when_utc: $('dt').value + ':00Z', lat: +$('lat').value, lon: +$('lon').value },
+        question: $('q').value,
+        system: $('sys').value,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || res.statusText);
+    $('out').hidden = false;
+    $('cites').innerHTML = '';
+    if (data.reflection) {
+      $('headline').textContent = data.reflection.headline;
+      typeOn($('body'), data.reflection.body, () => {
+        for (const c of data.reflection.citations) {
+          const d = document.createElement('p');
+          d.className = 'cite';
+          d.innerHTML = `<q></q> — <span></span>`;
+          d.querySelector('q').textContent = c.quote;
+          d.querySelector('span').textContent = c.chunk_id;
+          $('cites').appendChild(d);
+        }
+      });
+    } else {
+      $('headline').textContent = 'The library answers, even when the oracle is quiet.';
+      const passages = data.snippets.map(s => s.text).join('\n\n');
+      typeOn($('body'), passages || 'No passages matched this chart yet.');
+      if (data.note) {
+        const d = document.createElement('p');
+        d.className = 'cite';
+        d.textContent = data.note;
+        $('cites').appendChild(d);
+      }
+    }
+  } catch (err) {
+    $('err').textContent = err.message;
+    $('err').hidden = false;
+  } finally {
+    $('go').disabled = false;
+  }
+});
+</script>
+</body>
+</html>
