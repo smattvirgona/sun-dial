@@ -1,0 +1,83 @@
+[
+  {
+    "id": "sundial_bazi_day_master_wood",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["day_master"],
+    "topics": ["growth", "self", "direction"],
+    "text": "When the Day Master is Wood (the stems jia 甲 or yi 乙), the chart describes a self oriented toward growth and direction. Jia is yang wood — upright, ambitious, the trunk of a tree growing straight. Yi is yin wood — flexible, gentle, a vine adapting to the trellis. Wood Day Masters are nourished by Water and weakened by Metal.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_day_master_fire",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["day_master"],
+    "topics": ["passion", "self", "expression"],
+    "text": "When the Day Master is Fire (the stems bing 丙 or ding 丁), the chart describes a self oriented toward expression and warmth. Bing is yang fire — the sun, public, radiating outward. Ding is yin fire — the candle, focused, illuminating one room at a time. Fire Day Masters are nourished by Wood and weakened by Water.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_day_master_earth",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["day_master"],
+    "topics": ["stability", "self", "responsibility"],
+    "text": "When the Day Master is Earth (the stems wu 戊 or ji 己), the chart describes a self oriented toward stability and holding. Wu is yang earth — the mountain, immovable, the steady ground. Ji is yin earth — the field, fertile, what receives the seed. Earth Day Masters are nourished by Fire and weakened by Wood.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_day_master_metal",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["day_master"],
+    "topics": ["discernment", "self", "structure"],
+    "text": "When the Day Master is Metal (the stems geng 庚 or xin 辛), the chart describes a self oriented toward discernment and clean edges. Geng is yang metal — the sword, decisive, what cuts. Xin is yin metal — the ornament, refined, what is precise and well-finished. Metal Day Masters are nourished by Earth and weakened by Fire.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_day_master_water",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["day_master"],
+    "topics": ["adaptability", "self", "flow"],
+    "text": "When the Day Master is Water (the stems ren 壬 or gui 癸), the chart describes a self oriented toward flow and adaptability. Ren is yang water — the river, moving, that which carves. Gui is yin water — the dew, subtle, that which accumulates quietly. Water Day Masters are nourished by Metal and weakened by Earth.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_year_pillar",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["year"],
+    "topics": ["lineage", "context", "early life"],
+    "text": "The Year Pillar describes the era you arrived into and the lineage you inherit. Its stem and branch frame the public world that shaped the first years of life — the family's standing, the wider current of the time. To read the Year Pillar is to ask: what tide carried me here.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_month_pillar",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["month"],
+    "topics": ["upbringing", "season", "vocation"],
+    "text": "The Month Pillar holds the season of birth and is the strongest indicator of the Day Master's relative strength. It describes the upbringing — parents, the household's character — and, in adult life, the natural environment of the vocation. The Month Branch sets the climate against which the rest of the chart is measured.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_day_pillar",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["day"],
+    "topics": ["self", "marriage", "present"],
+    "text": "The Day Pillar holds the Day Master — the self at the centre of the chart — and the Day Branch is read as the palace of the spouse and of the immediate life situation. To read the Day Pillar is to read what you are and who stands beside you.",
+    "license_ring": 1
+  },
+  {
+    "id": "sundial_bazi_hour_pillar",
+    "source_id": "sundial_bazi_encyclopedia",
+    "system": "chinese",
+    "factors": ["hour"],
+    "topics": ["children", "late life", "private"],
+    "text": "The Hour Pillar describes the private interior and the late life — children, what one builds in the last quarter, what is carried into night. Its stem and branch quietly inflect everything that the Day Master does after the public day is done.",
+    "license_ring": 1
+  }
+]

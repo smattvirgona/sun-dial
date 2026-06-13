@@ -1,0 +1,92 @@
+[
+  {
+    "id": "iyer_brihat_jataka_sun",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["sun"],
+    "topics": ["self", "kingship", "vitality"],
+    "text": "The Sun has a square body and signifies the soul, courage, sovereignty, valor, brilliance, and the father. He rules the eastern direction, the season of Greeshma, and the bones of the body. He is of a bilious humour and the colour of dark red.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_moon",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["moon"],
+    "topics": ["mind", "mother", "feeling"],
+    "text": "The Moon represents the mind, the mother, beauty, comfort, and the public. She is of phlegmatic constitution, of round body, and of white complexion. She presides over the north-west and is exalted in Taurus.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_mars",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["mars"],
+    "topics": ["courage", "anger", "brothers"],
+    "text": "Mars is fierce, of red appearance, with a slender frame; he denotes courage, the younger brother, command, war, and landed property. His direction is the south. His tissue is marrow; his season Greeshma.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_mercury",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["mercury"],
+    "topics": ["thinking", "speech", "learning"],
+    "text": "Mercury is of mixed constitution and indicates intellect, learning, speech, the maternal uncle, and writing. He is green of hue, witty, and quick. He governs the north and is exalted in Virgo, his own house.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_jupiter",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["jupiter"],
+    "topics": ["wisdom", "fortune", "children"],
+    "text": "Jupiter is the preceptor of the gods, of tawny eyes and hair, broad-chested, learned in scripture, of phlegmatic humour, and a giver of children, of wealth, and of religious instruction. His direction is the north-east.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_venus",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["venus"],
+    "topics": ["love", "comfort", "art"],
+    "text": "Venus is the preceptor of the demons, of charming person, beautiful, lover of poetry and song, presiding over conveyances, jewels, and the bedchamber. She governs the south-east, is of phlegmatic and windy humour, and is exalted in Pisces.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_saturn",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["saturn"],
+    "topics": ["limit", "labor", "longevity"],
+    "text": "Saturn is of dark complexion, lean and tall, with sunken eyes and a slow gait; he rules longevity, sorrow, servants, and the labour of the poor. His direction is the west. He is of windy constitution and presides over the asterism of Pushya.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_rahu",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["rahu"],
+    "topics": ["foreign", "obsession", "desire"],
+    "text": "Rahu, the north node, is of smoky appearance and signifies foreign lands, sudden upheaval, the outcaste, and the obscure paths of desire. He moves contrary to the planets and casts a long shadow upon all that he aspects.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_ketu",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["ketu"],
+    "topics": ["release", "spirit", "renunciation"],
+    "text": "Ketu, the south node, is variegated in colour, smoky, and headless; he denotes renunciation, hidden knowledge, the ascetic, and matters that arrive without one's contriving. He is the opposite mark of Rahu and points always toward what is to be released.",
+    "license_ring": 1
+  },
+  {
+    "id": "iyer_brihat_jataka_lagna",
+    "source_id": "iyer_brihat_jataka_1885",
+    "system": "vedic",
+    "factors": ["lagna"],
+    "topics": ["self", "body", "beginning"],
+    "text": "The Lagna or rising sign signifies the body, the appearance, the disposition, and the whole shape of life as it commences. As the Lagna is, so is the field upon which the planets act; the rest of the chart unfolds as decoration upon it.",
+    "license_ring": 1
+  }
+]

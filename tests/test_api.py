@@ -68,6 +68,29 @@ def test_reflect_omits_transits_for_non_western_systems(client: TestClient) -> N
     assert res.json()["transits"] == []
 
 
+@pytest.mark.parametrize(
+    "system,expected_source_prefix",
+    [
+        ("western", "ashmand_"),
+        ("vedic", "iyer_"),
+        ("chinese", "sundial_bazi_"),
+    ],
+)
+def test_reflect_returns_seed_snippets_for_each_system(
+    client: TestClient, system: str, expected_source_prefix: str
+) -> None:
+    res = client.post(
+        "/reflect",
+        json={"birth": BIRTH, "question": "what is here?", "system": system},
+    )
+    assert res.status_code == 200
+    data = res.json()
+    assert data["snippets"], f"{system} corpus should match"
+    assert any(
+        s["id"].startswith(expected_source_prefix) for s in data["snippets"]
+    )
+
+
 def test_reflect_rejects_empty_question(client: TestClient) -> None:
     res = client.post("/reflect", json={"birth": BIRTH, "question": "", "system": "western"})
     assert res.status_code == 422

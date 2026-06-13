@@ -22,20 +22,32 @@ sources:
     license_ring: 2
     source_url: "https://www.loebclassics.com/view/manilius-astronomica/1977/pb_LCL469.7.xml"
 
-  # Vedic — older PD English translations exist on Internet Archive; verify each
+  - id: iyer_brihat_jataka_1885
+    title: "Brihat Jataka (Iyer translation)"
+    author: "Varahamihira"
+    year: 1885
+    system: vedic
+    license_ring: 1
+    source_url: "https://archive.org/details/brihatjataka00varagoog"
+
+  # Vedic — Santhanam BPHS translation; licensing murky, do not ingest until cleared
   - id: bphs_santhanam_placeholder
     title: "Brihat Parashara Hora Shastra (Santhanam translation)"
     author: "Maharishi Parashara"
     year: 1984
     system: vedic
-    license_ring: 3  # licensing murky; treat as Ring 3 until cleared
+    license_ring: 3
     source_url: "https://archive.org/details/BPHSEnglish"
 
-  # Chinese / BaZi — most quality English material is copyrighted. Placeholder.
-  - id: bazi_placeholder
-    title: "BaZi public-domain reference (TBD)"
-    author: ""
-    year: 0
+  # Chinese / BaZi — quality PD English source material does not really exist.
+  # We seed with factual encyclopedic correspondences written in-house: stems →
+  # elements, pillars → life domains. Clearly labeled as such so a future
+  # editorial pass can replace these with licensed translations of classical
+  # Chinese commentaries.
+  - id: sundial_bazi_encyclopedia
+    title: "BaZi encyclopedic correspondences (sun-dial editorial)"
+    author: "sun-dial editorial — pending licensed expert rewrites"
+    year: 2026
     system: chinese
-    license_ring: 3
+    license_ring: 1
     source_url: ""
