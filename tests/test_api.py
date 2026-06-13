@@ -7,6 +7,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from sundial.api import create_app
+from sundial.journal import JournalStore
 
 BIRTH = {"when_utc": "1990-06-15T18:30:00Z", "lat": 40.6782, "lon": -73.9442}
 
@@ -14,7 +15,7 @@ BIRTH = {"when_utc": "1990-06-15T18:30:00Z", "lat": 40.6782, "lon": -73.9442}
 @pytest.fixture
 def client(monkeypatch) -> TestClient:
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
-    return TestClient(create_app())
+    return TestClient(create_app(journal=JournalStore(":memory:")))
 
 
 def test_health(client: TestClient) -> None:
@@ -76,3 +77,45 @@ def test_reflect_rejects_bad_latitude(client: TestClient) -> None:
     bad = dict(BIRTH, lat=123.0)
     res = client.post("/reflect", json={"birth": bad, "question": "hm", "system": "western"})
     assert res.status_code == 422
+
+
+def test_journal_starts_empty(client: TestClient) -> None:
+    res = client.get("/journal")
+    assert res.status_code == 200
+    assert res.json() == {"entries": []}
+
+
+def test_reflect_persists_to_journal_and_listing_shows_it(client: TestClient) -> None:
+    refl_res = client.post(
+        "/reflect",
+        json={"birth": BIRTH, "question": "What is mine to hold?", "system": "western"},
+    )
+    refl_data = refl_res.json()
+    assert refl_data["journal_id"].startswith("refl_")
+
+    listing = client.get("/journal").json()
+    assert len(listing["entries"]) == 1
+    entry = listing["entries"][0]
+    assert entry["id"] == refl_data["journal_id"]
+    assert entry["question"] == "What is mine to hold?"
+    assert entry["system"] == "western"
+    assert entry["chart_hash"] == refl_data["chart_hash"]
+    # Dry-run mode stores no headline; the question still appears in history.
+    assert entry["headline"] is None
+
+
+def test_journal_filter_by_chart_hash(client: TestClient) -> None:
+    # Two charts (different birth data), two reflections each.
+    other_birth = dict(BIRTH, when_utc="1985-01-01T12:00:00Z")
+    r1 = client.post("/reflect", json={"birth": BIRTH, "question": "a", "system": "western"}).json()
+    r2 = client.post("/reflect", json={"birth": other_birth, "question": "b", "system": "western"}).json()
+    assert r1["chart_hash"] != r2["chart_hash"]
+
+    listing = client.get(f"/journal?chart_hash={r1['chart_hash']}").json()
+    assert [e["question"] for e in listing["entries"]] == ["a"]
+
+
+def test_journal_limit_is_clamped(client: TestClient) -> None:
+    res = client.get("/journal?limit=99999")
+    assert res.status_code == 200
+    assert "entries" in res.json()

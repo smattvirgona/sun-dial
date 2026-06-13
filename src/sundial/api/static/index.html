@@ -66,6 +66,20 @@
     color: var(--dim); margin-bottom: 1.4rem;
   }
   .moment b { color: var(--ember); font-weight: normal; }
+  #history { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .hlabel {
+    font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: normal; color: var(--dim); margin-bottom: 1.2rem;
+  }
+  #history-list { list-style: none; padding: 0; }
+  #history-list li {
+    margin-bottom: 1.1rem; padding-bottom: 1.1rem;
+    border-bottom: 1px dotted var(--line);
+  }
+  #history-list li:last-child { border-bottom: none; }
+  .h-q { color: var(--ink); font-style: italic; }
+  .h-h { color: var(--dim); font-size: 0.85rem; margin-top: 0.2rem; }
+  .h-ts { color: var(--dim); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
 </style>
 </head>
 <body>
@@ -103,6 +117,10 @@
     <div id="cites"></div>
   </section>
   <p id="err" class="err" hidden></p>
+  <section id="history" hidden>
+    <h2 class="hlabel">what you have been pondering</h2>
+    <ul id="history-list"></ul>
+  </section>
 </main>
 <script>
 const $ = id => document.getElementById(id);
@@ -166,6 +184,7 @@ $('f').addEventListener('submit', async e => {
         $('cites').appendChild(d);
       }
     }
+    loadHistory(data.chart_hash);
   } catch (err) {
     $('err').textContent = err.message;
     $('err').hidden = false;
@@ -173,6 +192,32 @@ $('f').addEventListener('submit', async e => {
     $('go').disabled = false;
   }
 });
+
+async function loadHistory(chartHash) {
+  try {
+    const url = chartHash ? `/journal?chart_hash=${encodeURIComponent(chartHash)}&limit=10` : '/journal?limit=10';
+    const res = await fetch(url);
+    const data = await res.json();
+    const entries = data.entries || [];
+    if (!entries.length) { $('history').hidden = true; return; }
+    const list = $('history-list');
+    list.innerHTML = '';
+    for (const e of entries) {
+      const li = document.createElement('li');
+      const q = document.createElement('div');
+      q.className = 'h-q'; q.textContent = '“' + e.question + '”';
+      const h = document.createElement('div');
+      h.className = 'h-h'; h.textContent = e.headline || '(no reflection synthesized)';
+      const ts = document.createElement('div');
+      ts.className = 'h-ts';
+      ts.textContent = new Date(e.created_at * 1000).toISOString().replace('T', ' ').slice(0, 16) + ' · ' + e.system;
+      li.appendChild(ts); li.appendChild(q); li.appendChild(h);
+      list.appendChild(li);
+    }
+    $('history').hidden = false;
+  } catch {}
+}
+window.addEventListener('DOMContentLoaded', () => loadHistory());
 </script>
 </body>
 </html>

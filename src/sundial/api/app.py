@@ -28,6 +28,7 @@ from sundial.charts import (
 )
 from sundial.corpus import RetrievalQuery
 from sundial.corpus.retrieve import InMemoryRetriever
+from sundial.journal import JournalStore
 from sundial.reflection import synthesize
 from sundial.reflection.types import ReflectionRequest
 from sundial.shared import BirthData, System
@@ -68,9 +69,13 @@ class ReflectRequest(BaseModel):
     system: System = "western"
 
 
-def create_app(retriever: InMemoryRetriever | None = None) -> FastAPI:
+def create_app(
+    retriever: InMemoryRetriever | None = None,
+    journal: JournalStore | None = None,
+) -> FastAPI:
     app = FastAPI(title="sun-dial", version="0.1.0")
     app.state.retriever = retriever or InMemoryRetriever.from_directory(_SOURCES_DIR)
+    app.state.journal = journal or JournalStore()
 
     @app.get("/")
     def index() -> FileResponse:
@@ -123,6 +128,17 @@ def create_app(retriever: InMemoryRetriever | None = None) -> FastAPI:
         if not os.environ.get("ANTHROPIC_API_KEY"):
             payload["reflection"] = None
             payload["note"] = "synthesis unavailable: no ANTHROPIC_API_KEY configured"
+            # Still record the moment so the journal shows that the user
+            # asked, even if no reflection was synthesized.
+            payload["journal_id"] = app.state.journal.save(
+                system=req.system,
+                chart_hash=chart_obj.chart_hash,
+                question=req.question,
+                headline=None,
+                body=None,
+                citations=[],
+                transits=transits,
+            )
             return payload
 
         if not snippets:
@@ -141,7 +157,22 @@ def create_app(retriever: InMemoryRetriever | None = None) -> FastAPI:
             )
         )
         payload["reflection"] = reflection.model_dump()
+        payload["journal_id"] = app.state.journal.save(
+            system=req.system,
+            chart_hash=chart_obj.chart_hash,
+            question=req.question,
+            headline=reflection.headline,
+            body=reflection.body,
+            citations=[c.model_dump() for c in reflection.citations],
+            transits=transits,
+        )
         return payload
+
+    @app.get("/journal")
+    def journal(chart_hash: str | None = None, limit: int = 20) -> dict[str, Any]:
+        limit = max(1, min(limit, 100))
+        entries = app.state.journal.recent(chart_hash=chart_hash, limit=limit)
+        return {"entries": entries}
 
     return app
 
