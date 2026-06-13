@@ -10,3 +10,4 @@ node_modules/
 .next/
 ephe/*.se1
 ephe/*.SE1
+sundial.db
